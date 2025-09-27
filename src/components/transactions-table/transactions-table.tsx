@@ -46,22 +46,24 @@ export const TransactionsTable = () => {
     */
 
     return (
-        <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
-            <TableHeader>
+        
+        <div className='flex flex-col w-full p-5 border rounded-2xl bg-white'>
+            <h3 className="text-2xl font-semibold mb-4 mt-4 text-center">Últimas transações</h3>
+            <Table>
+            <TableHeader className='bg-black'>
                 <TableRow>
-                    <TableHead className="w-[100px]">ID</TableHead>
-                    <TableHead>Pagador</TableHead>
-                    <TableHead>Recebedor</TableHead>
-                    <TableHead>Valor</TableHead>
-                    <TableHead>Descrição</TableHead>
-                    <TableHead>Data</TableHead>
+                    <TableHead className="w-[100px] text-white font-bold">ID</TableHead>
+                    <TableHead className='text-white font-bold'>Pagador</TableHead>
+                    <TableHead className='text-white font-bold'>Recebedor</TableHead>
+                    <TableHead className='text-white font-bold'>Valor</TableHead>
+                    <TableHead className='text-white font-bold'>Descrição</TableHead>
+                    <TableHead className='text-white font-bold'>Data</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
                 {mockTransactions.map((transaction) => (
-                    <TableRow>
-                        <TableCell key={transaction.id} className="font-medium">{transaction.id}</TableCell>
+                    <TableRow key={transaction.id} className='border-b-slate-700'>
+                        <TableCell className="font-bold">{transaction.id}</TableCell>
                         <TableCell>{transaction.pagador}</TableCell>
                         <TableCell>{transaction.recebedor}</TableCell>
                         <TableCell>{transaction.valor}</TableCell>
@@ -71,5 +73,6 @@ export const TransactionsTable = () => {
                 ))}
             </TableBody>
         </Table>
+        </div>
     )
 }

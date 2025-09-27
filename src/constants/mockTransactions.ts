@@ -94,5 +94,69 @@ export const mockTransactions = [
     valor: 425.60,
     descricao: "PIX",
     data: "25/05/2025"
-  }
+  },
+  {
+    id: 13,
+    pagador: "CNPJ_55555",
+    recebedor: "CNPJ_66666",
+    valor: 680.40,
+    descricao: "PIX",
+    data: "27/05/2025"
+  },
+  {
+    id: 14,
+    pagador: "CNPJ_66666",
+    recebedor: "CNPJ_77777",
+    valor: 125.90,
+    descricao: "PIX",
+    data: "27/05/2025"
+  },
+  {
+    id: 15,
+    pagador: "CNPJ_77777",
+    recebedor: "CNPJ_88888",
+    valor: 1850.30,
+    descricao: "DOC",
+    data: "26/05/2025"
+  },
+  {
+    id: 16,
+    pagador: "CNPJ_88888",
+    recebedor: "CNPJ_99999",
+    valor: 95.75,
+    descricao: "PIX",
+    data: "26/05/2025"
+  },
+  {
+    id: 17,
+    pagador: "CNPJ_99999",
+    recebedor: "CNPJ_10101",
+    valor: 425.60,
+    descricao: "PIX",
+    data: "25/05/2025"
+  },
+  {
+    id: 18,
+    pagador: "CNPJ_77777",
+    recebedor: "CNPJ_88888",
+    valor: 1850.30,
+    descricao: "DOC",
+    data: "26/05/2025"
+  },
+  {
+    id: 19,
+    pagador: "CNPJ_88888",
+    recebedor: "CNPJ_99999",
+    valor: 95.75,
+    descricao: "PIX",
+    data: "26/05/2025"
+  },
+  {
+    id: 20,
+    pagador: "CNPJ_99999",
+    recebedor: "CNPJ_10101",
+    valor: 425.60,
+    descricao: "PIX",
+    data: "25/05/2025"
+  },
 ];

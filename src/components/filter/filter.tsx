@@ -29,7 +29,7 @@ export const Filter = ({
     }
 
     return (
-        <div className={`flex-col items-center gap-3 p-4 border rounded-2xl bg-white shadow-sm ${className}`}>
+        <div className={`flex-col items-center gap-3 p-4 mb-5 border rounded-2xl bg-white shadow-sm ${className}`}>
             <div className="w-full mb-4">
                 <h2 className="text-lg font-medium text-gray-700">{title}</h2>
             </div>
