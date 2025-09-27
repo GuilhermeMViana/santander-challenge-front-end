@@ -1,6 +1,7 @@
 import { Header } from "@/components/header";
 import { BarCharts } from "@/components/bar-charts";
 import { LineCharts } from "@/components/line-charts";
+import { PieCharts } from "@/components/pie-charts";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Header/>
       <BarCharts/>
       <LineCharts/>
+      <PieCharts/>
     </div>
   );
 }
