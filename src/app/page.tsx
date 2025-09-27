@@ -3,6 +3,7 @@
 import { Header } from "@/components/header";
 import { Card } from "@/components/card/card";
 import { Crown, MoveDown, MoveUp, Rocket } from "lucide-react";
+import { TransactionsTable } from "@/components/transactions-table";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
           <p className="text-sm sm:text-base">Empresas maduras</p>
         </Card>
       </div>
+      <TransactionsTable title="Contas"/>
     </div>
   );
 }
