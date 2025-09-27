@@ -10,7 +10,7 @@ export const Card = ( {icon, price, children}: CardProps ) => {
             <p className="font-bold text-3xl mb-2">
                 {price}
             </p>
-            <div className="">
+            <div className="font-medium text-lg">
                 {children}
             </div>
         </div>
