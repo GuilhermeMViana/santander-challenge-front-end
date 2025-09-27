@@ -4,13 +4,7 @@ import { useState } from "react"
 import { Search } from "lucide-react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-
-interface FilterProps {
-    onSearch?: (searchTerm: string) => void
-    title?: string
-    placeholder?: string
-    className?: string
-}
+import { FilterProps } from "./props"
 
 export const Filter = ({
     onSearch,
