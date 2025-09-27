@@ -11,8 +11,8 @@ export const BarCharts = () => {
         <XAxis dataKey="month" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="entrada" fill="#8884d8" />
-        <Bar dataKey="saida" fill="#c1c1c1" />
+        <Bar dataKey="entrada" fill="#10b981" />
+        <Bar dataKey="saida" fill="#ef4444" />
       </BarChart>
     </ResponsiveContainer>
   );
