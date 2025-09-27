@@ -1,8 +1,6 @@
 import { Header } from "@/components/header";
 import { Card } from "@/components/card/card";
 import { Crown, MoveDown, MoveUp, Rocket } from "lucide-react";
-import { PieCharts } from "@/components/pie-charts";
-import { TransactionsTable } from "@/components/transactions-table";
 
 export default function Home() {
   return (
@@ -21,14 +19,6 @@ export default function Home() {
         <Card icon={<Crown size={64} className="text-yellow-500 sm:w-16 sm:h-16"/>} price={765}>
           <p className="text-sm sm:text-base">Empresas maduras</p>
         </Card>
-      </div>
-      <div className="flex flex-col xl:flex-row gap-5 lg:gap-8">
-        <div className="w-full xl:w-1/2">
-          <PieCharts />
-        </div>
-        <div className="w-full xl:w-1/2">
-          <TransactionsTable />
-        </div>
       </div>
     </div>
   );

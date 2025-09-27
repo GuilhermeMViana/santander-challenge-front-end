@@ -4,14 +4,13 @@ import { mockTransactions } from '@/constants/mockTransactions'
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 
-export const TransactionsTable = () => {
+export const TransactionsTable = ({ title }: TransactionTableProps) => {
     //const [transactions, setTransactions] = useState<TransactionTableProps[]>([])
     //const [loading, setLoading] = useState(true)
     //const [error, setError] = useState<string || null>(null)
@@ -48,7 +47,7 @@ export const TransactionsTable = () => {
     return (
         
         <div className='flex flex-col w-full p-5 border rounded-2xl bg-white'>
-            <h3 className="text-2xl font-semibold mb-4 mt-4 text-center">Últimas transações</h3>
+            <h3 className="text-2xl font-semibold mb-4 mt-4 text-center">{title}</h3>
             <Table>
             <TableHeader className='bg-black'>
                 <TableRow>
