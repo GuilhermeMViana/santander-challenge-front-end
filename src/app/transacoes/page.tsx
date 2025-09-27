@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 import { TransactionsTable } from "@/components/transactions-table";
 import { ArrowRightLeft, DollarSign, Users } from "lucide-react";
 
-export default function () {
+export default function Transacoes() {
     return (
         <div className="max-w-[1400px] my-10 mx-auto">
             <Header />
@@ -22,7 +22,7 @@ export default function () {
                 </Card>
             </div>
             <BarCharts />
-            <TransactionsTable/>
+            <TransactionsTable title="Últimas Transações"/>
         </div>
     )
 }
