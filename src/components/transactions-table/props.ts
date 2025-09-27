@@ -1,8 +1,9 @@
 export interface TransactionTableProps {
-  id: number;
-  pagador: string;
-  recebedor: string;
-  valor: number;
-  descricao: string;
-  data: string;
+  title: string,
+  id?: number;
+  pagador?: string;
+  recebedor?: string;
+  valor?: number;
+  descricao?: string;
+  data?: string;
 }

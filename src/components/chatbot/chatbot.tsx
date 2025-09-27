@@ -1,10 +1,12 @@
+'use client'
+
 import { useState } from "react"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import Image from "next/image"
 import santanderLogo from "../../../public/santander_logo.png"
 
-const CHAT_API_URL = "http://localhost:5000/api/chat"
+const CHAT_API_URL = "http://localhost:5001/api/chat"
 
 export function ChatBot() {
   const [open, setOpen] = useState(false)
