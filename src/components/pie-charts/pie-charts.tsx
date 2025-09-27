@@ -6,13 +6,13 @@ import { mockPieChartColors } from '@/constants/pie-chart-mock';
 export const PieCharts = () => (
   <div className="w-full bg-white border rounded-2xl">
     <h3 className="text-2xl font-semibold mb-4 mt-4 text-center">Principais Setores por CNAE</h3>
-    <ResponsiveContainer width="100%" height={500}>
+    <ResponsiveContainer width="100%" height={800}>
       <PieChart>
         <Pie
           data={mockPieChartData}
           cx="50%"
           cy="50%"
-          outerRadius={230}
+          outerRadius={300}
           dataKey="value"
         >
           {mockPieChartData.map((entry, index) => (
