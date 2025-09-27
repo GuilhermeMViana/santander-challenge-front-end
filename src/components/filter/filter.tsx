@@ -65,7 +65,7 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { FilterProps } from "./props"
 // ⚠️ Novo: Importar o hook customizado
-import { useCnpjID } from "@/app/contexts/cnpj-id" // Ajuste o caminho conforme sua estrutura
+import { useCnpjID } from "@/contexts/cnpj-id" // Ajuste o caminho conforme sua estrutura
 
 export const Filter = ({
     // Removi 'onSearch' e 'placeholder' não usados, simplifiquei a desestruturação

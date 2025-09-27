@@ -1,7 +1,7 @@
 'use client';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid, Tooltip } from 'recharts';
 import { useEffect, useState } from 'react';
-import { useCnpjID } from '@/app/contexts/cnpj-id'; // Assumindo que este caminho está correto
+import { useCnpjID } from '@/contexts/cnpj-id'; // Assumindo que este caminho está correto
 
 export const BarCharts = () => {
   const { id } = useCnpjID();
