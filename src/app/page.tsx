@@ -1,10 +1,13 @@
+"use client";
+
 import { Header } from "@/components/header";
 import { Card } from "@/components/card/card";
 import { Crown, MoveDown, MoveUp, Rocket } from "lucide-react";
+import { TransactionsTable } from "@/components/transactions-table";
 
 export default function Home() {
   return (
-    <div className="w-full max-w-[1400px] my-4 mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-[1400px] my-10 mx-auto">
       <Header/>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 lg:mb-15">
         <Card icon={<Rocket size={64} className="text-blue-500 sm:w-16 sm:h-16"/>} price={100000}>
@@ -20,6 +23,7 @@ export default function Home() {
           <p className="text-sm sm:text-base">Empresas maduras</p>
         </Card>
       </div>
+      <TransactionsTable title="Contas"/>
     </div>
   );
 }

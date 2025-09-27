@@ -25,7 +25,7 @@ export const BarCharts = () => {
       setError(null);
         
       try {
-        const apiUrl = `http://127.0.0.1:5000/transactions/graphs/barChart?id=CNPJ_${id}`; 
+        const apiUrl = `http://127.0.0.1:5001/transactions/graphs/barChart?id=CNPJ_${id}`; 
 
         const response = await fetch(apiUrl, {
           method: 'GET',
@@ -34,7 +34,7 @@ export const BarCharts = () => {
           },
           mode: 'cors',
         });
-
+        console.log(response)
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
