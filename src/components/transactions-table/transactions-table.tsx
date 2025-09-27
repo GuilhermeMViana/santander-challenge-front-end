@@ -1,7 +1,6 @@
 'use client';
-import { type TransactionTableProps } from './props'
+import { type TransactionTableProps, FilterData } from './props'
 import { useEffect, useState } from 'react'
-import { useCnpjID } from '@/app/contexts/cnpj-id'
 
 import {
     Table,
@@ -14,17 +13,16 @@ import {
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-export const TransactionsTable = ({ title }: TransactionTableProps) => {
-    const { id } = useCnpjID();
+export const TransactionsTable = ({ title, queryParams, filters }: TransactionTableProps) => {
     
     const [transactions, setTransactions] = useState<any[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     useEffect(() => {
-        console.log('ID do contexto mudou:', id);
+        console.log('ID do contexto mudou:', queryParams.id);
 
-        if (!id || id.trim() === '') {
+        if (!queryParams.id || queryParams.id.trim() === '') {
             setTransactions([]);
             setTotalPages(0);
             setCurrentPage(1);
@@ -33,18 +31,50 @@ export const TransactionsTable = ({ title }: TransactionTableProps) => {
         
         // Reset para página 1 quando ID mudar
         setCurrentPage(1);
-        
-    }, [id]);
+
+    }, [queryParams.id]);
+
+    // Efeito para resetar página quando filtros mudarem
+    useEffect(() => {
+        if (queryParams.id && queryParams.id.trim() !== '') {
+            console.log('Filtros mudaram, resetando para página 1:', filters);
+            setCurrentPage(1);
+        }
+    }, [filters, queryParams.id]);
 
     useEffect(() => {
-        if (!id || id.trim() === '') {
+        if (!queryParams.id || queryParams.id.trim() === '') {
             return;
         }
 
         const fetchTransactions = async (page: number = 1) => {
                 
             try {
-                const apiUrl = `http://127.0.0.1:5000/transactions/list?id=CNPJ_${id}&page=${page}`; 
+                // Construir parâmetros de query baseado nos filtros
+                const params = new URLSearchParams();
+                params.append('id', `CNPJ_${queryParams.id}`);
+                params.append('page', page.toString());
+
+                // Adicionar filtros como parâmetros de query
+                if (filters) {
+                    if (filters.months.length > 0) {
+                        params.append('date', filters.months.join(','));
+                    }
+                    if (filters.transactionType) {
+                        params.append('inOut', filters.transactionType);
+                    }
+                    if (filters.paymentType.length > 0) {
+                        params.append('type', filters.paymentType.join(','));
+                    }
+                    if (filters.clients.length > 0) {
+                        params.append('customProv', filters.clients.join(','));
+                    }
+                }
+
+                console.log('Parâmetros de query:', params.toString());
+
+                const apiUrl = `http://127.0.0.1:5000/transactions/list?${params.toString()}`;
+                console.log('URL da API com filtros:', apiUrl);
 
                 const response = await fetch(apiUrl, {
                     method: 'GET',
@@ -73,8 +103,8 @@ export const TransactionsTable = ({ title }: TransactionTableProps) => {
 
         fetchTransactions(currentPage);
 
-    }, [id, currentPage]);
-
+    }, [queryParams.id, currentPage, filters]);
+    
     // Função para navegar para a página anterior
     const handlePreviousPage = () => {
         if (currentPage > 1) {
@@ -94,11 +124,11 @@ export const TransactionsTable = ({ title }: TransactionTableProps) => {
         setCurrentPage(page);
     };
 
-
     return (
         <div className='flex flex-col w-full p-5 border rounded-2xl bg-white'>
+
             <h3 className="text-2xl font-semibold mb-4 mt-4 text-center">
-                {title} - ID: {id} ({transactions.length} transações)
+                {title} - ({transactions.length} transações)
             </h3>
             <Table>
                 <TableHeader className='bg-black'>

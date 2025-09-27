@@ -54,13 +54,13 @@ export function CompanyCards() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 lg:mb-15">
             <Card icon={<Users size={64} className="text-blue-500 sm:w-16 sm:h-16" />} price={cardData.companies}>
-                <p className="text-sm sm:text-base">Total de empresas</p>
+                <p className="text-sm sm:text-base">Total de clientes</p>
             </Card>
             <Card icon={<ArrowRightLeft size={64} className="text-green-500 sm:w-16 sm:h-16" />} price={cardData.transactions}>
                 <p className="text-sm sm:text-base">Total de transações</p>
             </Card>
             <Card icon={<DollarSign size={64} className="text-yellow-500 sm:w-16 sm:h-16" />} price={cardData.total}>
-                <p className="text-sm sm:text-base">Fluxo total</p>
+                <p className="text-sm sm:text-base">Saldo total</p>
             </Card>
         </div>
     );

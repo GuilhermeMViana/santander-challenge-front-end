@@ -1,9 +1,12 @@
+export interface FilterData {
+  months: string[]
+  transactionType: "entrada" | "saida" | ""
+  paymentType: string[]
+  clients: string[]
+}
+
 export interface TransactionTableProps {
   title: string,
-  id?: number;
-  pagador?: string;
-  recebedor?: string;
-  valor?: number;
-  descricao?: string;
-  data?: string;
+  queryParams: { id: string };
+  filters?: FilterData;
 }
