@@ -1,6 +1,6 @@
 export const PAYMENT_TYPES = [
-  { value: "boleto", label: "Boleto" },
-  { value: "ted", label: "TED" },
-  { value: "pix", label: "PIX" },
-  { value: "sistemico", label: "Sistêmico" }
+  { value: "BOLETO", label: "Boleto" },
+  { value: "TED", label: "TED" },
+  { value: "PIX", label: "PIX" },
+  { value: "SISTEMICO", label: "Sistêmico" }
 ]

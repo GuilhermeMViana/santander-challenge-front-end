@@ -18,14 +18,14 @@ export interface FilterData {
   months: string[]
   transactionType: "entrada" | "saida" | ""
   paymentType: string[]
-  clients: string[]
+  client: string
 }
 
 export const TableFilters = ({ onFiltersApply, className = "" }: TableFiltersProps) => {
   const [selectedMonths, setSelectedMonths] = useState<string[]>([])
   const [transactionType, setTransactionType] = useState<"entrada" | "saida" | "todos">("todos")
   const [selectedPaymentTypes, setSelectedPaymentTypes] = useState<string[]>([])
-  const [selectedClients, setSelectedClients] = useState<string[]>([])
+  const [selectedClient, setSelectedClient] = useState<string>("")
   const [clientInputValue, setClientInputValue] = useState("00000")
 
   const handleMonthSelect = (monthValue: string) => {
@@ -55,10 +55,8 @@ export const TableFilters = ({ onFiltersApply, className = "" }: TableFiltersPro
 
   const handleClientInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && clientInputValue.trim() !== '') {
-      // Adicionar o valor ao filtro se não existir já
-      if (!selectedClients.includes(clientInputValue)) {
-        setSelectedClients(prev => [...prev, clientInputValue])
-      }
+      // Definir apenas um cliente (substituir o anterior)
+      setSelectedClient(clientInputValue)
       setClientInputValue('00000') // Limpar o input
     }
   }
@@ -71,8 +69,8 @@ export const TableFilters = ({ onFiltersApply, className = "" }: TableFiltersPro
     setSelectedPaymentTypes(prev => prev.filter(type => type !== paymentType))
   }
 
-  const removeClient = (clientValue: string) => {
-    setSelectedClients(prev => prev.filter(client => client !== clientValue))
+  const removeClient = () => {
+    setSelectedClient("")
   }
 
   const handleApplyFilters = () => {
@@ -80,7 +78,7 @@ export const TableFilters = ({ onFiltersApply, className = "" }: TableFiltersPro
       months: selectedMonths,
       transactionType: transactionType === "todos" ? "" : transactionType,
       paymentType: selectedPaymentTypes,
-      clients: selectedClients
+      client: selectedClient ? "CNPJ_" + selectedClient.trim() : ""
     }
     
     if (onFiltersApply) {
@@ -92,7 +90,7 @@ export const TableFilters = ({ onFiltersApply, className = "" }: TableFiltersPro
     setSelectedMonths([])
     setTransactionType("todos")
     setSelectedPaymentTypes([])
-    setSelectedClients([])
+    setSelectedClient("")
     setClientInputValue("00000")
   }
 
@@ -211,28 +209,25 @@ export const TableFilters = ({ onFiltersApply, className = "" }: TableFiltersPro
           <h4 className="font-medium text-gray-700">Cliente/Provedor</h4>
           <Input
             type="text"
-            placeholder="Digite números e pressione Enter..."
+            placeholder={selectedClient ? "Cliente selecionado. Digite outro para substituir..." : "Digite números e pressione Enter..."}
             value={clientInputValue}
             onChange={handleClientInputChange}
             onKeyPress={handleClientInputKeyPress}
             className="w-full border-gray-200 focus:border-red-500 focus:ring-red-500/20"
           />
           
-          {/* Tags dos clientes selecionados */}
-          {selectedClients.length > 0 && (
+          {/* Tag do cliente selecionado */}
+          {selectedClient && (
             <div className="flex flex-wrap gap-1">
-              {selectedClients.map(client => (
-                <span 
-                  key={client}
-                  className="inline-flex items-center gap-1 px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full"
-                >
-                  {client}
-                  <X 
-                    className="w-3 h-3 cursor-pointer hover:text-red-900" 
-                    onClick={() => removeClient(client)}
-                  />
-                </span>
-              ))}
+              <span 
+                className="inline-flex items-center gap-1 px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full"
+              >
+                {selectedClient}
+                <X 
+                  className="w-3 h-3 cursor-pointer hover:text-red-900" 
+                  onClick={() => removeClient()}
+                />
+              </span>
             </div>
           )}
         </div>

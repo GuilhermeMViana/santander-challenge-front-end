@@ -72,15 +72,15 @@ export const Filter = ({
     title = "Buscar Clientes",
     className = ""
 }: FilterProps) => {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState("00000");
     // ⚠️ Novo: Recupere a função setID do contexto
-    const { setID } = useCnpjID(); 
+    const { setID } = useCnpjID();
 
     const handleSearch = () => {
         // Validação básica para garantir que o ID não está vazio
         if (searchTerm.trim()) {
             // ⚠️ Novo: Atualiza o ID no contexto
-            setID(searchTerm.trim()); 
+            setID(searchTerm.trim());
             console.log("ID do cliente definido no Context:", searchTerm.trim());
         } else {
             console.warn("Termo de busca vazio. O ID do contexto não foi alterado.");
@@ -103,7 +103,14 @@ export const Filter = ({
                     type="text"
                     placeholder="Digite o CNPJ/ID do cliente..."
                     value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => {
+                        // Permitir apenas números
+                        const numericValue = e.target.value.replace(/[^0-9]/g, '')
+
+                        const formattedValue = numericValue.padStart(5, "0").slice(-5)
+
+                        setSearchTerm(formattedValue)
+                    }}
                     onKeyPress={handleKeyPress}
                     className="border-gray-200 focus:border-red-500 focus:ring-red-500/20 flex-1"
                 />
