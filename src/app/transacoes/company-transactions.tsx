@@ -11,7 +11,7 @@ export const CompanyTransactions: React.FC = () => {
         months: [],
         transactionType: "",
         paymentType: [],
-        clients: []
+        client: ""
     });
 
     const handleFiltersApply = (newFilters: FilterData) => {

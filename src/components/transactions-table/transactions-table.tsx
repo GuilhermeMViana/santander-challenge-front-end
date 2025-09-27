@@ -57,21 +57,31 @@ export const TransactionsTable = ({ title, queryParams, filters }: TransactionTa
 
                 // Adicionar filtros como parâmetros de query
                 if (filters) {
+                    // Converter meses de "01", "02" para números "1", "2"
                     if (filters.months.length > 0) {
-                        params.append('date', filters.months.join(','));
+                        const monthNumbers = filters.months.map(month => parseInt(month, 10).toString());
+                        params.append('date', monthNumbers.join(','));
                     }
+                    
+                    // Converter entrada/saida para 1/2
                     if (filters.transactionType) {
-                        params.append('inOut', filters.transactionType);
+                        const inOutValue = filters.transactionType === 'entrada' ? '1' : '2';
+                        params.append('inOut', inOutValue);
                     }
+                    
+                    // Tipos de pagamento - usar os valores como estão (boleto, ted, pix, sistemico)
                     if (filters.paymentType.length > 0) {
                         params.append('type', filters.paymentType.join(','));
                     }
-                    if (filters.clients.length > 0) {
-                        params.append('customProv', filters.clients.join(','));
+                    
+                    // Clientes - usar como está (agora cliente único)
+                    if (filters.client && filters.client.trim() !== '') {
+                        params.append('customProv', filters.client);
                     }
                 }
 
-                console.log('Parâmetros de query:', params.toString());
+                console.log('Filtros recebidos:', filters);
+                console.log('Parâmetros de query construídos:', params.toString());
 
                 const apiUrl = `http://127.0.0.1:5000/transactions/list?${params.toString()}`;
                 console.log('URL da API com filtros:', apiUrl);

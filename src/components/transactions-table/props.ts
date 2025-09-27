@@ -2,7 +2,7 @@ export interface FilterData {
   months: string[]
   transactionType: "entrada" | "saida" | ""
   paymentType: string[]
-  clients: string[]
+  client: string
 }
 
 export interface TransactionTableProps {
