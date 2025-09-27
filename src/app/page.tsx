@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import { Header } from "@/components/header";
 import { Card } from "@/components/card/card";
 import { Crown, MoveDown, MoveUp, Rocket } from "lucide-react";
@@ -15,7 +16,7 @@ export default function Home() {
   }, []);
 console.log(data);
   return (
-    <div className="w-full max-w-[1400px] my-4 mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-[1400px] my-10 mx-auto">
       <Header/>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 lg:mb-15">
         <Card icon={<MoveDown size={64} className="text-red-500 sm:w-16 sm:h-16"/>} price={data.Declínio || 0}>
@@ -34,7 +35,7 @@ console.log(data);
           <p className="text-sm sm:text-base whitespace-nowrap">Empresas maduras</p>
         </Card>
       </div>
-      <TransactionsTable title="Últimas transações" />
+      <TransactionsTable title="Contas"/>
     </div>
   );
 }

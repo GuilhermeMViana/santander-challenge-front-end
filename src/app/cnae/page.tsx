@@ -11,7 +11,7 @@ export default function CNAE() {
                     <PieCharts />
                 </div>
                 <div className="w-full xl:w-1/2">
-                    <TransactionsTable title="Últimas transações" />
+                    <TransactionsTable title="Últimas transações" queryParams={{ id: '' }} />
                 </div>
             </div>
         </div>
