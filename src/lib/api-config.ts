@@ -6,6 +6,7 @@ export const API_CONFIG = {
     TRANSACTIONS_BAR_CHART: '/transactions/graphs/barChart',
     TRANSACTIONS_LIST: '/transactions/list',
     CNAE_PIE_CHART: '/cnae/graphs/pieChart',
+    CNAE_LIST: '/cnae/list',
     MATURITY_OVERVIEW: '/maturity/overview',
   }
 } as const;
@@ -18,6 +19,7 @@ export const INTERNAL_API_CONFIG = {
     TRANSACTIONS_BAR_CHART: '/api/transactions/bar-chart',
     TRANSACTIONS_LIST: '/api/transactions/list',
     CNAE_PIE_CHART: '/api/cnae/pie-chart',
+    CNAE_LIST: '/api/cnae/list',
     MATURITY_OVERVIEW: '/api/maturity/overview',
   }
 } as const;

@@ -26,6 +26,9 @@ src/
 │       │   └── list/route.ts          # Proxy para /transactions/list
 │       ├── cnae/
 │       │   └── pie-chart/route.ts     # Proxy para /cnae/graphs/pieChart
+│       ├── cnae/
+│       │   ├── pie-chart/route.ts     # Proxy para /cnae/graphs/pieChart
+│       │   └── list/route.ts          # Proxy para /cnae/list
 │       └── maturity/
 │           └── overview/route.ts      # Proxy para /maturity/overview
 ├── lib/
@@ -58,6 +61,7 @@ const response = await fetch('/api/transactions/overview', {
 - ✅ `TransactionsTable` → `/api/transactions/list`
 - ✅ `PieCharts` → `/api/cnae/pie-chart`
 - ✅ `Home page` → `/api/maturity/overview`
+- ✅ **NOVO:** `CNAEAccountsTable` → `/api/cnae/list`
 
 ## 🌟 **Benefícios Alcançados**
 
@@ -86,6 +90,10 @@ export const API_CONFIG = {
   ENDPOINTS: {
     TRANSACTIONS_OVERVIEW: '/transactions/overview',
     TRANSACTIONS_BAR_CHART: '/transactions/graphs/barChart',
+    TRANSACTIONS_LIST: '/transactions/list',
+    CNAE_PIE_CHART: '/cnae/graphs/pieChart',
+    CNAE_LIST: '/cnae/list',
+    MATURITY_OVERVIEW: '/maturity/overview',
     // ...
   }
 };

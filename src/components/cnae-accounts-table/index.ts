@@ -1,0 +1,1 @@
+export { CNAEAccountsTable } from './cnae-accounts-table';
