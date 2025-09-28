@@ -20,14 +20,13 @@ export function CompanyCards() {
         const fetchOverview = async () => {
 
             try {
-                const apiUrl = `http://127.0.0.1:5001/transactions/overview?id=CNPJ_${id}`;
+                const apiUrl = `/api/transactions/overview?id=CNPJ_${id}`;
 
                 const response = await fetch(apiUrl, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    mode: 'cors',
                 });
 
                 if (!response.ok) {

@@ -1,0 +1,23 @@
+// Configurações da API externa
+export const API_CONFIG = {
+  BASE_URL: process.env.EXTERNAL_API_URL || 'http://127.0.0.1:5001',
+  ENDPOINTS: {
+    TRANSACTIONS_OVERVIEW: '/transactions/overview',
+    TRANSACTIONS_BAR_CHART: '/transactions/graphs/barChart',
+    TRANSACTIONS_LIST: '/transactions/list',
+    CNAE_PIE_CHART: '/cnae/graphs/pieChart',
+    MATURITY_OVERVIEW: '/maturity/overview',
+  }
+} as const;
+
+// Configurações das API Routes locais (para os componentes)
+export const INTERNAL_API_CONFIG = {
+  BASE_URL: '',
+  ENDPOINTS: {
+    TRANSACTIONS_OVERVIEW: '/api/transactions/overview',
+    TRANSACTIONS_BAR_CHART: '/api/transactions/bar-chart',
+    TRANSACTIONS_LIST: '/api/transactions/list',
+    CNAE_PIE_CHART: '/api/cnae/pie-chart',
+    MATURITY_OVERVIEW: '/api/maturity/overview',
+  }
+} as const;

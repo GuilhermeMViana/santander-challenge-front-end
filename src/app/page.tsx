@@ -7,12 +7,18 @@ import { TransactionsTable } from "@/components/transactions-table";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<{
+    Declínio?: number;
+    Expansão?: number;
+    Iniciante?: number;
+    Madura?: number;
+  }>({});
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5001/maturity/overview')
+    fetch('/api/maturity/overview')
       .then(response => response.json())
-      .then(data => setData(data));
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching maturity overview:', error));
   }, []);
 console.log(data);
   return (

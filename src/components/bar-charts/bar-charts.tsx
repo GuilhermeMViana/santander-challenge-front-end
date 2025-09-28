@@ -25,14 +25,13 @@ export const BarCharts = () => {
       setError(null);
         
       try {
-        const apiUrl = `http://127.0.0.1:5001/transactions/graphs/barChart?id=CNPJ_${id}`; 
+        const apiUrl = `/api/transactions/bar-chart?id=CNPJ_${id}`; 
 
         const response = await fetch(apiUrl, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
-          mode: 'cors',
         });
         console.log(response)
         if (!response.ok) {
