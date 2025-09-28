@@ -8,6 +8,7 @@ export const API_CONFIG = {
     CNAE_PIE_CHART: '/cnae/graphs/pieChart',
     CNAE_LIST: '/cnae/list',
     MATURITY_OVERVIEW: '/maturity/overview',
+    MATURITY_LIST: '/maturity/list',
   }
 } as const;
 
@@ -21,5 +22,6 @@ export const INTERNAL_API_CONFIG = {
     CNAE_PIE_CHART: '/api/cnae/pie-chart',
     CNAE_LIST: '/api/cnae/list',
     MATURITY_OVERVIEW: '/api/maturity/overview',
+    MATURITY_LIST: '/api/maturity/list',
   }
 } as const;
