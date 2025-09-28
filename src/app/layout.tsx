@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import CnpjIDProvider from "../contexts/cnpj-id";
+import CnpjIDProvider from "@/contexts/cnpj-id";
 import { ChatBot } from "@/components";
 
 const geistSans = Geist({

@@ -4,8 +4,8 @@ import { Filter } from "@/components/filter";
 import { Header } from "@/components/header";
 import { TransactionsTable } from "@/components/transactions-table";
 import { ArrowRightLeft, DollarSign, Users } from "lucide-react";
-import { CompanyCards } from "./company-cards";
-import { CompanyTransactions } from "./company-transactions";
+import { CompanyCards } from "../../components/company-cards/company-cards";
+import { CompanyTransactions } from "../../components/company-transactions/company-transactions";
 
 export default function Transacoes() {
     return (

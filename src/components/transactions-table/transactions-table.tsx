@@ -83,7 +83,7 @@ export const TransactionsTable = ({ title, queryParams, filters }: TransactionTa
                 console.log('Filtros recebidos:', filters);
                 console.log('Parâmetros de query construídos:', params.toString());
 
-                const apiUrl = `http://127.0.0.1:5000/transactions/list?${params.toString()}`;
+                const apiUrl = `http://127.0.0.1:5001/transactions/list?${params.toString()}`;
                 console.log('URL da API com filtros:', apiUrl);
 
                 const response = await fetch(apiUrl, {

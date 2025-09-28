@@ -3,7 +3,7 @@
 import { TableFilters, FilterData } from '@/components/table-filters';
 import { TransactionsTable } from '@/components/transactions-table';
 import React, { useState } from 'react';
-import { useCnpjID } from '../contexts/cnpj-id';
+import { useCnpjID } from '@/contexts/cnpj-id';
 
 export const CompanyTransactions: React.FC = () => {
     const { id } = useCnpjID();

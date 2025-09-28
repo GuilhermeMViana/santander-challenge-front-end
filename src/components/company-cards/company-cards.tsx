@@ -1,8 +1,8 @@
 'use client';
 
 import { Users, ArrowRightLeft, DollarSign } from "lucide-react";
-import { Card } from "../../components/card/card";
-import { useCnpjID } from "../contexts/cnpj-id";
+import { Card } from "../card/card";
+import { useCnpjID } from "@/contexts/cnpj-id";
 import { useEffect, useState } from "react";
 
 export function CompanyCards() {
@@ -20,7 +20,7 @@ export function CompanyCards() {
         const fetchOverview = async () => {
 
             try {
-                const apiUrl = `http://127.0.0.1:5000/transactions/overview?id=CNPJ_${id}`;
+                const apiUrl = `http://127.0.0.1:5001/transactions/overview?id=CNPJ_${id}`;
 
                 const response = await fetch(apiUrl, {
                     method: 'GET',
