@@ -23,7 +23,7 @@ export default function Home() {
           <p className="text-sm sm:text-base">Empresas maduras</p>
         </Card>
       </div>
-      <TransactionsTable title="Contas"/>
+      <TransactionsTable title="Contas" queryParams={{ id: '' }}/>
     </div>
   );
 }
