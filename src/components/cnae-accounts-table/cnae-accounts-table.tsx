@@ -1,7 +1,5 @@
 'use client';
-import { type TransactionTableProps, FilterData } from './props'
-import { useEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react';
 import {
     Table,
     TableBody,
@@ -9,82 +7,56 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export const TransactionsTable = ({ title, queryParams, filters }: TransactionTableProps) => {
-    
-    const [transactions, setTransactions] = useState<any[]>([]);
+interface Account {
+    account: string;
+    invoicing: string;
+    date: string;
+}
+
+interface CNAETableProps {
+    cnae: string;
+}
+
+export const CNAEAccountsTable = ({ cnae }: CNAETableProps) => {
+    const [accounts, setAccounts] = useState<Account[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        console.log('ID do contexto mudou:', queryParams.id);
-
-        if (!queryParams.id || queryParams.id.trim() === '') {
-            setTransactions([]);
+        if (!cnae || cnae.trim() === '') {
+            setAccounts([]);
             setTotalPages(0);
             setCurrentPage(1);
-            return; 
+            setError(null);
+            return;
         }
         
-        // Reset para página 1 quando ID mudar
+        // Reset para página 1 quando CNAE mudar
         setCurrentPage(1);
-
-    }, [queryParams.id]);
-
-    // Efeito para resetar página quando filtros mudarem
-    useEffect(() => {
-        if (queryParams.id && queryParams.id.trim() !== '') {
-            console.log('Filtros mudaram, resetando para página 1:', filters);
-            setCurrentPage(1);
-        }
-    }, [filters, queryParams.id]);
+    }, [cnae]);
 
     useEffect(() => {
-        if (!queryParams.id || queryParams.id.trim() === '') {
+        if (!cnae || cnae.trim() === '') {
             return;
         }
 
-        const fetchTransactions = async (page: number = 1) => {
-                
+        const fetchAccounts = async (page: number = 1) => {
+            setLoading(true);
+            setError(null);
+            
             try {
-                // Construir parâmetros de query baseado nos filtros
                 const params = new URLSearchParams();
-                params.append('id', `CNPJ_${queryParams.id}`);
+                params.append('cnae', cnae);
                 params.append('page', page.toString());
 
-                // Adicionar filtros como parâmetros de query
-                if (filters) {
-                    // Converter meses de "01", "02" para números "1", "2"
-                    if (filters.months.length > 0) {
-                        const monthNumbers = filters.months.map(month => parseInt(month, 10).toString());
-                        params.append('date', monthNumbers.join(','));
-                    }
-                    
-                    // Converter entrada/saida para 1/2
-                    if (filters.transactionType) {
-                        const inOutValue = filters.transactionType === 'entrada' ? '1' : '2';
-                        params.append('inOut', inOutValue);
-                    }
-                    
-                    // Tipos de pagamento - usar os valores como estão (boleto, ted, pix, sistemico)
-                    if (filters.paymentType.length > 0) {
-                        params.append('type', filters.paymentType.join(','));
-                    }
-                    
-                    // Clientes - usar como está (agora cliente único)
-                    if (filters.client && filters.client.trim() !== '') {
-                        params.append('customProv', filters.client);
-                    }
-                }
-
-                console.log('Filtros recebidos:', filters);
-                console.log('Parâmetros de query construídos:', params.toString());
-
-                const apiUrl = `/api/transactions/list?${params.toString()}`;
-                console.log('URL da API com filtros:', apiUrl);
+                const apiUrl = `/api/cnae/list?${params.toString()}`;
+                console.log('Fetching CNAE accounts from:', apiUrl);
 
                 const response = await fetch(apiUrl, {
                     method: 'GET',
@@ -98,22 +70,26 @@ export const TransactionsTable = ({ title, queryParams, filters }: TransactionTa
                 }
 
                 const data = await response.json();
-                console.log('Dados recebidos:', data);
+                console.log('CNAE accounts data received:', data);
                 
-                // Extrair as transações e totalPages da resposta
-                setTransactions(data.transactions || []);
+                setAccounts(data.accounts || []);
                 setTotalPages(data.totalPages || 0);
                 setCurrentPage(page);
                 
             } catch (err) {
-                console.error('Erro na requisição:', err);
+                console.error('Error fetching CNAE accounts:', err);
+                setError('Erro ao carregar contas do CNAE');
+                setAccounts([]);
+                setTotalPages(0);
+            } finally {
+                setLoading(false);
             }
         };
 
-        fetchTransactions(currentPage);
+        fetchAccounts(currentPage);
 
-    }, [queryParams.id, currentPage, filters]);
-    
+    }, [cnae, currentPage]);
+
     // Função para navegar para a página anterior
     const handlePreviousPage = () => {
         if (currentPage > 1) {
@@ -133,34 +109,62 @@ export const TransactionsTable = ({ title, queryParams, filters }: TransactionTa
         setCurrentPage(page);
     };
 
+    if (!cnae) {
+        return (
+            <div className='flex flex-col w-full p-8 border rounded-2xl bg-white'>
+                <div className="text-center text-gray-500">
+                    Selecione um CNAE para visualizar as contas associadas.
+                </div>
+            </div>
+        );
+    }
+
+    if (loading) {
+        return (
+            <div className='flex flex-col w-full p-8 border rounded-2xl bg-white'>
+                <div className="text-center text-gray-500">
+                    Carregando contas para: {cnae}...
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className='flex flex-col w-full p-8 border rounded-2xl bg-white'>
+                <div className="text-center text-red-500">
+                    {error}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className='flex flex-col w-full p-5 border rounded-2xl bg-white'>
-
             <h3 className="text-2xl font-semibold mb-4 mt-4 text-center">
-                {title} - ({transactions.length} transações)
+                Contas do CNAE ({accounts.length} contas)
             </h3>
+            
+            <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm text-gray-700">
+                    <span className="font-semibold">CNAE:</span> {cnae}
+                </p>
+            </div>
+
             <Table>
                 <TableHeader className='bg-black'>
                     <TableRow>
-                        <TableHead className='text-white font-bold'>Tipo</TableHead>
-                        <TableHead className='text-white font-bold'>Cliente/Provedor</TableHead>
-                        <TableHead className='text-white font-bold'>Valor</TableHead>
-                        <TableHead className='text-white font-bold'>Forma de Pagamento</TableHead>
+                        <TableHead className='text-white font-bold'>Conta</TableHead>
+                        <TableHead className='text-white font-bold'>Faturamento</TableHead>
                         <TableHead className='text-white font-bold'>Data</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {transactions.map((transaction: any, index: number) => (
+                    {accounts.map((account: Account, index: number) => (
                         <TableRow key={index} className='border-b-slate-700'>
-                            <TableCell className="font-bold">
-                                <span className={transaction.inOut === 'Entrada' ? 'text-green-600' : 'text-red-600'}>
-                                    {transaction.inOut}
-                                </span>
-                            </TableCell>
-                            <TableCell>{transaction.customProv}</TableCell>
-                            <TableCell className="font-semibold">{transaction.value}</TableCell>
-                            <TableCell>{transaction.type}</TableCell>
-                            <TableCell>{transaction.date}</TableCell>
+                            <TableCell className="font-semibold">{account.account}</TableCell>
+                            <TableCell className="font-bold text-green-600">{account.invoicing}</TableCell>
+                            <TableCell>{account.date}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -229,5 +233,5 @@ export const TransactionsTable = ({ title, queryParams, filters }: TransactionTa
                 </div>
             )}
         </div>
-    )
-}
+    );
+};

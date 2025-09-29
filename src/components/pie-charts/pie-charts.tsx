@@ -8,7 +8,7 @@ export const PieCharts = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5001/cnae/graphs/pieChart')
+    fetch('/api/cnae/pie-chart')
       .then(response => response.json())
       .then(data => {
         console.log('Dados recebidos da API:', data);
@@ -22,8 +22,8 @@ export const PieCharts = () => {
   }, []);
 
   // Função para formatar os dados se necessário
-  const formatDataForChart = (data) => {
-    return data.map(item => ({
+  const formatDataForChart = (data: any[]) => {
+    return data.map((item: any) => ({
       name: item.cnae, // Nome que aparecerá na legenda
       value: item.accounts, // Valor usado para calcular o tamanho da fatia
       cnae: item.cnae, // Mantém o campo original
@@ -55,7 +55,7 @@ export const PieCharts = () => {
             nameKey="name" // Define qual campo usar para o nome na legenda
           >
             {/* Agora mapeia sobre os dados reais da API */}
-            {chartData.map((entry, index) => (
+            {chartData.map((entry: any, index: number) => (
               <Cell 
                 key={`cell-${index}`} 
                 fill={mockPieChartColors[index % mockPieChartColors.length]} 

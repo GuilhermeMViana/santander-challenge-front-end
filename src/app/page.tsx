@@ -3,18 +3,32 @@
 import { Header } from "@/components/header";
 import { Card } from "@/components/card/card";
 import { Crown, MoveDown, MoveUp, Rocket } from "lucide-react";
-import { TransactionsTable } from "@/components/transactions-table";
+import { MaturityFilter } from "@/components/maturity-filter";
+import { MaturityAccountsTable } from "@/components/maturity-accounts-table";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<{
+    Declínio?: number;
+    Expansão?: number;
+    Iniciante?: number;
+    Madura?: number;
+  }>({});
+  
+  const [selectedState, setSelectedState] = useState<string>('');
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5001/maturity/overview')
+    fetch('/api/maturity/overview')
       .then(response => response.json())
-      .then(data => setData(data));
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching maturity overview:', error));
   }, []);
-console.log(data);
+
+  const handleStateFilterChange = (state: string) => {
+    setSelectedState(state);
+  };
+
+  console.log(data);
   return (
     <div className="max-w-[1400px] my-10 mx-auto">
       <Header/>
@@ -35,7 +49,13 @@ console.log(data);
           <p className="text-sm sm:text-base whitespace-nowrap">Empresas maduras</p>
         </Card>
       </div>
-      <TransactionsTable title="Contas"/>
+
+      <MaturityFilter 
+        onFilterChange={handleStateFilterChange}
+        selectedState={selectedState}
+      />
+      
+      <MaturityAccountsTable state={selectedState} />
     </div>
   );
 }
